@@ -1,11 +1,12 @@
-import java.util.Arrays;
-
 public class Board {
     /*****************************************
      * CODE that Genearl students get 
      * fully filled out
      ********************************************/
+    // Two-dimentional array that keeps track of the board state
     private char[][] state;
+    
+    // Class Constants
     private final int SIZE = 8; // 8 by 8 board. If this changes, aplha and number must change too
     private final char[] ALPHA = "abcdefgh".toCharArray(); // Must be the same length as SIZE
     private final char[] NUMBER = "12345678".toCharArray(); // Must be the same length as SIZE
@@ -13,7 +14,7 @@ public class Board {
     
     
     
-    // Getter and Setter for the state
+    // Getter and Setter for the board state
     public char[][] getState() { return state;}
     public void setState(char[][] newState) { state = newState; }
     
@@ -29,7 +30,7 @@ public class Board {
      *      g · · · · · · · ·
      *      h · · · · · · · ·
      */
-    public void toString() {
+    public void printBoard() {
         //Print out the letters
         System.out.print("  ");
         for(char num : NUMBER) {
@@ -44,37 +45,6 @@ public class Board {
             }
             System.out.println();
         }
-    }
-     // returns the index of a particular letter or -1 if not found
-    private int letterIndexOf(char letter) {
-        for (int i =0; i< SIZE; i++) {
-            if (letter == ALPHA[i]){
-                return i;
-            }
-        }
-        return -1;
-    }
-    
-    // returns the index of a particular number or -1 if not found
-    // Technically I could just cast it and then -1 it to get the index
-    private int numberIndexOf(char num) {
-        for (int i =0; i < SIZE; i++) {
-            if (num ==  NUMBER[i]){
-                return i;
-            }
-        }
-        return -1;
-    }
-    
-    // returns the index of a particular number or -1 if not found
-    // Technically I could just cast it and then -1 it to get the index
-    private int symbolIndexOf(char sym) {
-        for (int i =0; i < SIZE; i++) {
-            if (sym ==  SYMBOL[i]){
-                return i;
-            }
-        }
-        return -1;
     }
     
     // returns the index of a particular letter or -1 if not found
@@ -106,6 +76,7 @@ public class Board {
         }
         return -1;
     }
+
     
     // return true if the choice is valid
     private boolean validChoice (char letter, char num) {
@@ -117,10 +88,7 @@ public class Board {
      * fully filled out
      ********************************************/
      
-     /****************************************
-      * CODE that to hand skeleton to 
-      * students that need extra help
-      ****************************************/
+
      // checks if the ALPHA array contains a letter
     private boolean containsLetter(char letter) {
         for(char let : ALPHA) {
@@ -147,7 +115,7 @@ public class Board {
     *  3 = '\u25AA' Which is a box, represents a ship
     */
     public void markBoard(char letter, char num, int index) throws Exception {
-        // First make sure that letter and num are valid
+        // First make sure that letter and num are valid, then change the state
         if (validChoice(letter, num) && index >= 0 && index < SYMBOL.length) {
             state[letterIndexOf(letter)][numberIndexOf(num)] = SYMBOL[index];
         } else {
@@ -155,10 +123,7 @@ public class Board {
             throw new Exception("Invalid choices " + letter + num + " with SYMBOL index=" + index);
         }
     }
-     /****************************************
-      * END OF CODE that to hand skeleton to 
-      * students that need extra help
-      ****************************************/
+
      
     /* Calculate if it is a Miss or a Hit
     * if a something other than a dot is there return that SYMBOL index
@@ -186,9 +151,6 @@ public class Board {
             throw new Exception("Invalid choices " + letter + num);
         }
     }
-    
-   
-    
     
     
     // return if a ship is present at the location
